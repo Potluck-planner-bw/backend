@@ -15,6 +15,7 @@ server.use('/api/foods', foodRouter)
 server.use('/api/events', eventRouter)
 server.use('/api/auth', authRouter)
 
+// Need to remember to bring in the auth middleware and apply it to one or many routes.
 
 
 
