@@ -13,9 +13,9 @@ const authRouter = require('../auth/register-router');
 server.use(express.json())
 
 server.use('/api/users', userRouter)
-server.use('/api/foods', foodRouter)
-server.use('/api/events', eventRouter) // authenticate needs to be added back here
-server.use('/api/auth', authRouter)
+server.use('/api/foods',  authenticate, foodRouter)
+server.use('/api/events', authenticate, eventRouter) // authenticate needs to be added back here
+server.use('/api/auth', authenticate, authRouter)
 
 // Need to remember to bring in the auth middleware and apply it to one or many routes.
 
