@@ -52,6 +52,7 @@ router.put('/:id', (req, res) => {
         })
 })
 
+// [POST] - an event - http://localhost:3000/api/events/
 router.post('/', (req, res) => {
     const body = req.body;
 
@@ -67,10 +68,23 @@ router.post('/', (req, res) => {
                 res.status(500).json({ error: 'Internal'})
             })
     }
-
-
 })
 
+// [DEL] - an event by ID - http://localhost:3000/api/events/2
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+  Events.remove(id)
+      .then(deleted => {
+          if(deleted) {
+              res.status({ message: 'Event has been deleted'})
+          } else {
+              res.status(500).json({ error: "Internal server error" })
+          }
+      })
+      .catch(error => {
+          console.log(error)
+      })
+})
 
 
 module.exports = router;

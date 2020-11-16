@@ -11,7 +11,7 @@ function findByID(id) {
 
 function update(id, change) {
     return db("events")
-    .where(id, 'id' )
+    .where({ id })
     .update(change)
 }
 
@@ -24,9 +24,17 @@ function add(event) {
         })
 }
 
+function remove(id) {
+    return db('events')
+    .where({ id })
+    .first()
+    .truncate();
+  }
+
 module.exports = { 
     find,
     findByID,
     update,
     add,
+    remove,
 }

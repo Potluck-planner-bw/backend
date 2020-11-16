@@ -14,13 +14,13 @@ exports.up = function(knex) {
     tbl.string('address', 200).notNullable()
     tbl.string('dates', 200).notNullable()
     tbl.string('guests', 200).notNullable()
-    tbl.string('users_id', 200).notNullable()
+    tbl.integer('users_id', 200)
 })
 .createTable('foods', tbl => {
     tbl.increments()
 
     tbl.string('food_item', 200).notNullable()
-    tbl.string('events_id', 200).notNullable()
+    tbl.integer('events_id', 200).notNullable()
     tbl.boolean('completed', 200).notNullable()
 
 })
