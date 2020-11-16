@@ -19,6 +19,10 @@ server.use('/api/auth', authRouter)
 
 // Need to remember to bring in the auth middleware and apply it to one or many routes.
 
+server.get('/', (req, res) => {
+    const messageOfTheDay = process.env.MOTD || 'Hello World'
+    res.json({ motd: messageOfTheDay  })
+})
 
 
 module.exports = server;

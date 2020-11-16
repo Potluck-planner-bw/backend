@@ -28,7 +28,7 @@ function findByID(id) {
 function remove(id) {
     return db('foods')
     .where({ id })
-    .truncate();
+    .del();
   }
 
 module.exports = {

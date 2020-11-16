@@ -27,8 +27,7 @@ function update(id, change) {
 function remove(id) {
   return db('users')
   .where({ id })
-  .first()
-  .truncate();
+  .del();
 }
 
 

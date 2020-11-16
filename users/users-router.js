@@ -58,15 +58,18 @@ router.put('/:id', (req, res) => {
 })
 // [DEL] - delete a user - http://localhost:3000/api/users/1
 router.delete('/:id', (req, res) => {
-      const { id } = req.params;
-    Users.remove(id)
-        .then(deleted => {
-            if(deleted) {
-                res.status({ message: 'User has been deleted'})
-            } else {
-                res.status(500).json({ error: "Internal server error" })
-            }
-        })
+    Users.remove(req.params.id)
+    .then(count => {
+        if(count > 0) {
+          res.status(200).json({ message: 'The user has been deleted' }); 
+        } else {
+          res.status(404).json({ message: 'The food item could not be found' });
+        }
+    })
+    .catch(error => {
+        console.log(error)
+        res.status(500).json({ error: error.message })
+    })
   })
 // [GET] - a user and the events
   router.get('/:id/events', (req, res) => {

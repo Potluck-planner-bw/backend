@@ -67,18 +67,18 @@ router.put('/:id', (req, res) => {
 })
 
 // [DEL] - delete a food item - http://localhost:3000/api/foods/:id
-router.delete('/:id', (req, res) => {
-    const { id } = req.params;
-  Food.remove(id)
-      .then(deleted => {
-          if(deleted) {
-              res.status({ message: 'Food item has been deleted'})
+router.delete('/:id', (req, res) => {   
+    Food.remove(req.params.id)
+      .then(count => {
+          if(count > 0) {
+            res.status(200).json({ message: 'The food item has been deleted' }); 
           } else {
-              res.status(500).json({ error: "Internal server error" })
+            res.status(404).json({ message: 'The food item could not be found' });
           }
       })
       .catch(error => {
           console.log(error)
+          res.status(500).json({ error: error.message })
       })
 })
 

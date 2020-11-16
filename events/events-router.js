@@ -72,17 +72,18 @@ router.post('/', (req, res) => {
 
 // [DEL] - an event by ID - http://localhost:3000/api/events/2
 router.delete('/:id', (req, res) => {
-    const { id } = req.params;
-  Events.remove(id)
-      .then(deleted => {
-          if(deleted) {
-              res.status({ message: 'Event has been deleted'})
+    
+  Events.remove(req.params.id)
+      .then(count => {
+          if(count > 0) {
+            res.status(200).json({ message: 'The hub has been nuked' }); 
           } else {
-              res.status(500).json({ error: "Internal server error" })
+            res.status(404).json({ message: 'The hub could not be found' });
           }
       })
       .catch(error => {
           console.log(error)
+          res.status(500).json({ error: error.message })
       })
 })
 

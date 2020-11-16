@@ -27,8 +27,7 @@ function add(event) {
 function remove(id) {
     return db('events')
     .where({ id })
-    .first()
-    .truncate();
+    .del();
   }
 
 module.exports = { 
