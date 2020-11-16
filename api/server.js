@@ -14,7 +14,7 @@ server.use(express.json())
 
 server.use('/api/users', userRouter)
 server.use('/api/foods', foodRouter)
-server.use('/api/events', authenticate, eventRouter)
+server.use('/api/events', eventRouter) // authenticate needs to be added back here
 server.use('/api/auth', authRouter)
 
 // Need to remember to bring in the auth middleware and apply it to one or many routes.

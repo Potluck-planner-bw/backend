@@ -206,7 +206,7 @@ HTTP Method: **[DEL]**
 
 ### Events Endpoints (start here)
 
-POST a user with ID by: -- /api/events/:id
+POST an event with ID by: -- /api/events/:id
 HTTP Method: **[POST]**
 
 **Body:**
