@@ -19,6 +19,17 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/:id', (req, res) => {
+    Food.findByID(req.params.id)
+    .then(food => {
+        res.status(200).json(food)
+    })
+    .catch(error => {
+        console.log(error)
+        res.status(500).json({ error: 'Could not get the food item'})
+    })
+})
+
 // [POST] - all the foods - http://localhost:3000/api/foods
 router.post('/', (req, res) => {
     const body = req.body;

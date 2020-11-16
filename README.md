@@ -51,12 +51,19 @@ HTTP Method: **[POST]**
 
 **Response:** (200) - ok
 
+(400) - unauthorized
+```
+{
+    "message": "bad credentials"
+}
+```
+
 =========================================================================
 
-## Login
+## Users Endpoints (start here)
 
-Login a user to: -- /api/auth/login
-HTTP Method: **[POST]**
+GET a user by: -- /api/users/
+HTTP Method: **[GET]**
 
 **Body:**
 ```
@@ -70,343 +77,504 @@ HTTP Method: **[POST]**
 ```
     {
         "id": 1,
-        "username": "TJ",
+        "username": "Jake",
         "password": "password"
     }
 ```
+
 **Response:** (200) - ok
+
+=========================================================================
+
+GET a user by ID: -- /api/users/:id
+HTTP Method: **[GET]**
+
+**Body:**
 ```
-{
-    "message": "Welcome back, User4",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo1LCJ1c2VybmFtZSI6IlVzZXI0IiwiaWF0IjoxNjA1NTYwOTQyLCJleHAiOjE2MDU1NjA5ODd9.SMErvzpARt0xtFz8_muAMTlbT_UW06rgoSpeyXVvnqY"
+| name      | type   | required | description                         |  
+| --------  | ------ | ------- | ----------------------------------   |
+| username  | String | Yes      | Must be unique/ Must be less than 100 chars |
+| password  | String | Yes      | Must be unique/ Must be less than 100 chars |
+```
+ 
+**Example:**
+```
+    {
+        "id": 1,
+        "username": "Jake",
+        "password": "password"
+    }
+```
+
+**Response:** (200) - ok
+
+=========================================================================
+
+PUT a user by: -- /api/users/:id
+HTTP Method: **[PUT]**
+
+**Body:**
+```
+| name      | type   | required | description                         |  
+| --------  | ------ | ------- | ----------------------------------   |
+| username  | String | Yes      | Must be unique/ Must be less than 100 chars |
+| password  | String | Yes      | Must be unique/ Must be less than 100 chars |
+```
+ 
+**Example:**
+```
+    {
+        "id": 1,
+        "username": "Jake",
+        "password": "password"
+    }
+```
+
+**Response:** (200) - updated user information
+
+=========================================================================
+
+DELETE a user by ID: -- /api/users/:id
+HTTP Method: **[DEL]**
+
+**Body:**
+```
+| name      | type   | required | description                         |  
+| --------  | ------ | ------- | ----------------------------------   |
+| username  | String | Yes      | Must be unique/ Must be less than 100 chars |
+| password  | String | Yes      | Must be unique/ Must be less than 100 chars |
+```
+ 
+**Example:**
+```
+    {
+        "id": 1,
+        "username": "Jake",
+        "password": "password"
+    }
+```
+
+**Response:** (200) - deleted user information
+
+=========================================================================
+
+GET a user with events: -- /api/users/:id/events
+HTTP Method: **[DEL]**
+
+**Body:**
+```
+| name      | type   | required | description                         |  
+| --------  | ------ | ------- | ----------------------------------   |
+| username  | String | Yes      | Must be unique/ Must be less than 100 chars |
+| password  | String | Yes      | Must be unique/ Must be less than 100 chars |
+```
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ------------------------------------ |
+| event_name | String  | No       | Must be unique/ Must be less than 200 chars |
+| time       | String  | No       | Must be unique/ Must be less than 200 chars |
+| address    | String  | No       | Must be unique/ Must be less than 200 chars |
+| dates      | String  | No       | Must be unique/ Must be less than 200 chars |
+| guests     | String  | No       | Must be unique/ Must be less than 200 chars |
+| users_id   | Integer | NO       | Must be unique/ Must be less than 200 chars |
+```
+ 
+**Example:**
+```
+   {
+    "id": 2,
+    "username": "Jake",
+    "password": "password",
+    "events": [
+        {
+            "id": 1,
+            "event_name": "Fairmount Park Meet Up",
+            "time": "10:00am",
+            "address": "Fairmount Park, Philadelphia",
+            "dates": "11-20-20",
+            "guests": "TJ, Alden, Jake, Cory",
+            "users_id": 2
+        }
+    ]
 }
 ```
 
-(400) - unauthorized
-```
-{
-    "message": "bad credentials"
-}
-```
-
-
+**Response:** (200) - (given view)
 
 =========================================================================
 
 
-### Request
-
-`GET /thing/`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 2
-
-    []
-
-## Create a new Thing
-
-### Request
-
-`POST /thing/`
-
-    curl -i -H 'Accept: application/json' -d 'name=Foo&status=new' http://localhost:7000/thing
-
-### Response
-
-    HTTP/1.1 201 Created
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 201 Created
-    Connection: close
-    Content-Type: application/json
-    Location: /thing/1
-    Content-Length: 36
-
-    {"id":1,"name":"Foo","status":"new"}
-
-## Get a specific Thing
-
-### Request
-
-`GET /thing/id`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 36
-
-    {"id":1,"name":"Foo","status":"new"}
-
-## Get a non-existent Thing
-
-### Request
-
-`GET /thing/id`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/9999
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Create another new Thing
-
-### Request
-
-`POST /thing/`
-
-    curl -i -H 'Accept: application/json' -d 'name=Bar&junk=rubbish' http://localhost:7000/thing
-
-### Response
-
-    HTTP/1.1 201 Created
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 201 Created
-    Connection: close
-    Content-Type: application/json
-    Location: /thing/2
-    Content-Length: 35
-
-    {"id":2,"name":"Bar","status":null}
-
-## Get list of Things again
-
-### Request
-
-`GET /thing/`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 74
-
-    [{"id":1,"name":"Foo","status":"new"},{"id":2,"name":"Bar","status":null}]
-
-## Change a Thing's state
-
-### Request
-
-`PUT /thing/:id/status/changed`
-
-    curl -i -H 'Accept: application/json' -X PUT http://localhost:7000/thing/1/status/changed
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 40
-
-    {"id":1,"name":"Foo","status":"changed"}
-
-## Get changed Thing
-
-### Request
-
-`GET /thing/id`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 40
-
-    {"id":1,"name":"Foo","status":"changed"}
-
-## Change a Thing
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'name=Foo&status=changed2' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed2"}
-
-## Attempt to change a Thing using partial params
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'status=changed3' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed3"}
-
-## Attempt to change a Thing using invalid params
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'id=99&status=changed4' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed4"}
-
-## Change a Thing using the _method hack
-
-### Request
-
-`POST /thing/:id?_method=POST`
-
-    curl -i -H 'Accept: application/json' -X POST -d 'name=Baz&_method=PUT' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Baz","status":"changed4"}
-
-## Change a Thing using the _method hack in the url
-
-### Request
-
-`POST /thing/:id?_method=POST`
-
-    curl -i -H 'Accept: application/json' -X POST -d 'name=Qux' http://localhost:7000/thing/1?_method=PUT
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: text/html;charset=utf-8
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Delete a Thing
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X DELETE http://localhost:7000/thing/1/
-
-### Response
-
-    HTTP/1.1 204 No Content
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 204 No Content
-    Connection: close
-
-
-## Try to delete same Thing again
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X DELETE http://localhost:7000/thing/1/
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Get deleted Thing
-
-### Request
-
-`GET /thing/1`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:33 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Delete a Thing using the _method hack
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X POST -d'_method=DELETE' http://localhost:7000/thing/2/
-
-### Response
-
-    HTTP/1.1 204 No Content
-    Date: Thu, 24 Feb 2011 12:36:33 GMT
-    Status: 204 No Content
-    Connection: close
-
+### Events Endpoints (start here)
+
+POST a user with ID by: -- /api/events/:id
+HTTP Method: **[POST]**
+
+**Body:**
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ------------------------------------ |
+| event_name | String  | No       | Must be unique/ Must be less than 200 chars |
+| time       | String  | No       | Must be unique/ Must be less than 200 chars |
+| address    | String  | No       | Must be unique/ Must be less than 200 chars |
+| dates      | String  | No       | Must be unique/ Must be less than 200 chars |
+| guests     | String  | No       | Must be unique/ Must be less than 200 chars |
+| users_id   | Integer | NO       | Must be unique/ Must be less than 200 chars |
+```
+ 
+**Example:**
+```
+    [
+    {
+        "id": 1,
+        "event_name": "Fairmount Park Meet Up",
+        "time": "10:00am",
+        "address": "Fairmount Park, Philadelphia",
+        "dates": "11-20-20",
+        "guests": "TJ, Alden, Jake, Cory",
+        "users_id": 2
+    }
+]
+```
+
+**Response:** (200) - event created successfully
+
+=========================================================================
+
+GET all events by: -- /api/events/
+HTTP Method: **[GET]**
+
+**Body:**
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ------------------------------------ |
+| event_name | String  | No       | Must be unique/ Must be less than 200 chars |
+| time       | String  | No       | Must be unique/ Must be less than 200 chars |
+| address    | String  | No       | Must be unique/ Must be less than 200 chars |
+| dates      | String  | No       | Must be unique/ Must be less than 200 chars |
+| guests     | String  | No       | Must be unique/ Must be less than 200 chars |
+| users_id   | Integer | NO       | Must be unique/ Must be less than 200 chars |
+```
+ 
+**Example:**
+```
+[
+    {
+        "id": 1,
+        "event_name": "Fairmount Park Meet Up",
+        "time": "10:00am",
+        "address": "Fairmount Park, Philadelphia",
+        "dates": "11-20-20",
+        "guests": "TJ, Alden, Jake, Cory",
+        "users_id": 2
+    }
+]
+```
+
+**Response:** (200)
+
+=========================================================================
+
+GET events by ID: -- /api/events/:id
+HTTP Method: **[GET]**
+
+**Body:**
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ------------------------------------ |
+| event_name | String  | No       | Must be unique/ Must be less than 200 chars |
+| time       | String  | No       | Must be unique/ Must be less than 200 chars |
+| address    | String  | No       | Must be unique/ Must be less than 200 chars |
+| dates      | String  | No       | Must be unique/ Must be less than 200 chars |
+| guests     | String  | No       | Must be unique/ Must be less than 200 chars |
+| users_id   | Integer | NO       | Must be unique/ Must be less than 200 chars |
+```
+ 
+**Example:**
+```
+[
+    {
+        "id": 1,
+        "event_name": "Fairmount Park Meet Up",
+        "time": "10:00am",
+        "address": "Fairmount Park, Philadelphia",
+        "dates": "11-20-20",
+        "guests": "TJ, Alden, Jake, Cory",
+        "users_id": 2
+    }
+]
+```
+
+**Response:** (200)
+
+=========================================================================
+
+PUT events by: -- /api/events/:id
+HTTP Method: **[PUT]**
+
+**Body:**
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ------------------------------------ |
+| event_name | String  | No       | Must be unique/ Must be less than 200 chars |
+| time       | String  | No       | Must be unique/ Must be less than 200 chars |
+| address    | String  | No       | Must be unique/ Must be less than 200 chars |
+| dates      | String  | No       | Must be unique/ Must be less than 200 chars |
+| guests     | String  | No       | Must be unique/ Must be less than 200 chars |
+| users_id   | Integer | NO       | Must be unique/ Must be less than 200 chars |
+```
+ 
+**Example:**
+```
+[
+    {
+        "id": 2,
+        "event_name": "Thanksgiving Food Drive 2020",
+        "time": "10:00am",
+        "address": "Phoenix, Arizona",
+        "dates": "11-20-20",
+        "guests": "TJ, Alden, Jake, Cory",
+        "users_id": 2
+    }
+]
+```
+
+**Response:** (200)
+
+=========================================================================
+
+DELETE events by: -- /api/events/:id
+HTTP Method: **[DEL]**
+
+**Body:**
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ------------------------------------ |
+| event_name | String  | No       | Must be unique/ Must be less than 200 chars |
+| time       | String  | No       | Must be unique/ Must be less than 200 chars |
+| address    | String  | No       | Must be unique/ Must be less than 200 chars |
+| dates      | String  | No       | Must be unique/ Must be less than 200 chars |
+| guests     | String  | No       | Must be unique/ Must be less than 200 chars |
+| users_id   | Integer | NO       | Must be unique/ Must be less than 200 chars |
+```
+ 
+**Example:**
+```
+[
+    {
+        "id": 2,
+        "event_name": "Thanksgiving Food Drive 2020",
+        "time": "10:00am",
+        "address": "Phoenix, Arizona",
+        "dates": "11-20-20",
+        "guests": "TJ, Alden, Jake, Cory",
+        "users_id": 2
+    }
+]
+```
+
+**Response:** (200) - event successfully deleted
+
+=========================================================================
+
+
+### Food Endpoints (start here)
+
+GET all food items by: -- /api/foods/
+HTTP Method: **[GET]**
+
+**Body:**
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ---------------------         |
+| food_item  | String  | Yes      |  Must be less than 100 chars  |
+| events_id  | integer | Yes      |  Must be less than 100 chars  |
+| completed  | boolean | Yes      |  Must be 0(false) or 1(true)  | 
+```
+ 
+**Example:**
+```
+[
+    {
+        "id": 1,
+        "food_item": "Ketchup",
+        "events_id": 2,
+        "completed": 0
+    },
+    {
+        "id": 2,
+        "food_item": "Mustard",
+        "events_id": 2,
+        "completed": 0
+    },
+    {
+        "id": 3,
+        "food_item": "Burger",
+        "events_id": 1,
+        "completed": 1
+    }
+]
+```
+
+**Response:** (200)
+
+=========================================================================
+
+GET a food item by ID: -- /api/foods/:id
+HTTP Method: **[GET]**
+
+**Body:**
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ---------------------         |
+| food_item  | String  | Yes      |  Must be less than 100 chars  |
+| events_id  | integer | Yes      |  Must be less than 100 chars  |
+| completed  | boolean | Yes      |  Must be 0(false) or 1(true)  | 
+```
+ 
+**Example:**
+```
+[
+    {
+        "id": 2,
+        "food_item": "Mustard",
+        "events_id": 2,
+        "completed": 0
+    }
+]
+```
+
+**Response:** (200) - view given
+
+=========================================================================
+
+POST a food item by: -- /api/foods/
+HTTP Method: **[POST]**
+
+**Body:**
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ---------------------         |
+| food_item  | String  | Yes      |  Must be less than 100 chars  |
+| events_id  | integer | Yes      |  Must be less than 100 chars  |
+| completed  | boolean | Yes      |  Must be 0(false) or 1(true)  | 
+```
+ 
+**Example:**
+```
+[
+    {
+        "id": 2,
+        "food_item": "Ketchup",
+        "events_id": 2,
+        "completed": 0
+    }
+]
+```
+
+**Response:** (200) - Food item successfully created
+
+=========================================================================
+
+PUT a food item by ID: -- /api/foods/:id
+HTTP Method: **[POST]**
+
+**Body:**
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ---------------------         |
+| food_item  | String  | Yes      |  Must be less than 100 chars  |
+| events_id  | integer | Yes      |  Must be less than 100 chars  |
+| completed  | boolean | Yes      |  Must be 0(false) or 1(true)  | 
+```
+ 
+**Example:**
+```
+[
+    {
+        "id": 2,
+        "food_item": "Potato Salad",
+        "events_id": 2,
+        "completed": 0
+    }
+]
+```
+
+**Response:** (200) - Food item updated successfully
+
+=========================================================================
+
+DELETE a food item by ID: -- /api/foods/:id
+HTTP Method: **[DEL]**
+
+**Body:**
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ---------------------         |
+| food_item  | String  | Yes      |  Must be less than 100 chars  |
+| events_id  | integer | Yes      |  Must be less than 100 chars  |
+| completed  | boolean | Yes      |  Must be 0(false) or 1(true)  | 
+```
+ 
+**Example:**
+```
+[
+    {
+        "id": 2,
+        "food_item": "Potato Salad",
+        "events_id": 2,
+        "completed": 0
+    }
+]
+```
+
+**Response:** 200 - Food item deleted successfully
+
+=========================================================================
+
+GET a food with events: -- /api/foods/:id/events
+HTTP Method: **[GET]**
+
+**Body:**
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ------------------------------------ |
+| event_name | String  | No       | Must be unique/ Must be less than 200 chars |
+| time       | String  | No       | Must be unique/ Must be less than 200 chars |
+| address    | String  | No       | Must be unique/ Must be less than 200 chars |
+| dates      | String  | No       | Must be unique/ Must be less than 200 chars |
+| guests     | String  | No       | Must be unique/ Must be less than 200 chars |
+| users_id   | Integer | NO       | Must be unique/ Must be less than 200 chars |
+```
+
+```
+| name       | type    | required | description 
+| ---------- | ------  | -------- | ---------------------         |
+| food_item  | String  | Yes      |  Must be less than 100 chars  |
+| events_id  | integer | Yes      |  Must be less than 100 chars  |
+| completed  | boolean | Yes      |  Must be 0(false) or 1(true)  | 
+```
+ 
+**Example:**
+```
+{
+    "id": 1,
+    "event_name": "Fairmount Park Meet Up",
+    "time": "10:00am",
+    "address": "Fairmount Park, Philadelphia",
+    "dates": "11-20-20",
+    "guests": "TJ, Alden, Jake, Cory",
+    "users_id": 2,
+    "food": [
+        {
+            "id": 3,
+            "food_item": "Burger",
+            "events_id": 1,
+            "completed": 1
+        }
+    ]
+}
+```
+
+**Response:** 200 - View given
+
+=========================================================================
