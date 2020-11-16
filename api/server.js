@@ -2,6 +2,8 @@ const express = require('express');
 
 const server = express();
 
+const authenticate = require('../auth/auth-middleware')
+
 const userRouter = require('../users/users-router');
 const foodRouter = require('../foods/foods-router');
 const eventRouter = require('../events/events-router');
@@ -12,7 +14,7 @@ server.use(express.json())
 
 server.use('/api/users', userRouter)
 server.use('/api/foods', foodRouter)
-server.use('/api/events', eventRouter)
+server.use('/api/events', authenticate, eventRouter)
 server.use('/api/auth', authRouter)
 
 // Need to remember to bring in the auth middleware and apply it to one or many routes.

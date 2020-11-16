@@ -31,7 +31,7 @@ router.post('/register', async (req, res) => {
             const token = makeToken(user)
             res.json({ message: `Welcome back, ${user.username}`, token})
         } else {
-            res.status(401).json({ message: 'bad credentials'})
+            res.status(400).json({ message: 'bad credentials'})
         }
     } catch (err) {
         res.status(500).json({ message: err.message}) 
