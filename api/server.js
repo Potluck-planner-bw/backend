@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 
 const server = express();
 
@@ -11,6 +12,7 @@ const authRouter = require('../auth/register-router');
 
 
 server.use(express.json())
+server.use(cors())
 
 server.use('/api/users', userRouter)
 server.use('/api/foods',  authenticate, foodRouter)
