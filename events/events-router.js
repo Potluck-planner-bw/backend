@@ -76,9 +76,9 @@ router.delete('/:id', (req, res) => {
   Events.remove(req.params.id)
       .then(count => {
           if(count > 0) {
-            res.status(200).json({ message: 'The hub has been nuked' }); 
+            res.status(200).json({ message: 'The event has been deleted' }); 
           } else {
-            res.status(404).json({ message: 'The hub could not be found' });
+            res.status(404).json({ message: 'The event could not be found' });
           }
       })
       .catch(error => {

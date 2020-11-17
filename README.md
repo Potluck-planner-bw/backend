@@ -4,7 +4,7 @@ Potluck Planner REST API
 
 ## Register
 
-Register a new user to: -- /api/auth/register
+Register a new user to: **/api/auth/register**
 HTTP Method: **[POST]**
 
 **Body:**
@@ -29,7 +29,7 @@ HTTP Method: **[POST]**
 
 ## Login
 
-Login a user to: -- /api/auth/login
+Login a user to:  **/api/auth/login**
 HTTP Method: **[POST]**
 
 **Body:**
@@ -62,7 +62,7 @@ HTTP Method: **[POST]**
 
 ## Users Endpoints (start here)
 
-GET a user by: -- /api/users/
+GET a user by: **/api/users/**
 HTTP Method: **[GET]**
 
 **Body:**
@@ -86,7 +86,7 @@ HTTP Method: **[GET]**
 
 =========================================================================
 
-GET a user by ID: -- /api/users/:id
+GET a user by ID: **/api/users/:id**
 HTTP Method: **[GET]**
 
 **Body:**
@@ -110,7 +110,7 @@ HTTP Method: **[GET]**
 
 =========================================================================
 
-PUT a user by: -- /api/users/:id
+PUT a user by: **/api/users/:id**
 HTTP Method: **[PUT]**
 
 **Body:**
@@ -134,7 +134,7 @@ HTTP Method: **[PUT]**
 
 =========================================================================
 
-DELETE a user by ID: -- /api/users/:id
+DELETE a user by ID: **/api/users/:id**
 HTTP Method: **[DEL]**
 
 **Body:**
@@ -158,8 +158,8 @@ HTTP Method: **[DEL]**
 
 =========================================================================
 
-GET a user with events: -- /api/users/:id/events
-HTTP Method: **[DEL]**
+GET a user with events: **/api/users/:id/events**
+HTTP Method: **[GET]**
 
 **Body:**
 ```
@@ -206,7 +206,7 @@ HTTP Method: **[DEL]**
 
 ### Events Endpoints (start here)
 
-POST an event with ID by: -- /api/events/:id
+POST a new event by: **/api/events/**
 HTTP Method: **[POST]**
 
 **Body:**
@@ -240,7 +240,7 @@ HTTP Method: **[POST]**
 
 =========================================================================
 
-GET all events by: -- /api/events/
+GET all events by: **/api/events/**
 HTTP Method: **[GET]**
 
 **Body:**
@@ -274,7 +274,7 @@ HTTP Method: **[GET]**
 
 =========================================================================
 
-GET events by ID: -- /api/events/:id
+GET events by ID:  **/api/events/:id**
 HTTP Method: **[GET]**
 
 **Body:**
@@ -308,7 +308,7 @@ HTTP Method: **[GET]**
 
 =========================================================================
 
-PUT events by: -- /api/events/:id
+PUT events by: **/api/events/:id**
 HTTP Method: **[PUT]**
 
 **Body:**
@@ -342,7 +342,7 @@ HTTP Method: **[PUT]**
 
 =========================================================================
 
-DELETE events by: -- /api/events/:id
+DELETE events by: **/api/events/:id**
 HTTP Method: **[DEL]**
 
 **Body:**
@@ -379,7 +379,7 @@ HTTP Method: **[DEL]**
 
 ### Food Endpoints (start here)
 
-GET all food items by: -- /api/foods/
+GET all food items by: **/api/foods/**
 HTTP Method: **[GET]**
 
 **Body:**
@@ -419,7 +419,7 @@ HTTP Method: **[GET]**
 
 =========================================================================
 
-GET a food item by ID: -- /api/foods/:id
+GET a food item by ID: **/api/foods/:id**
 HTTP Method: **[GET]**
 
 **Body:**
@@ -447,7 +447,7 @@ HTTP Method: **[GET]**
 
 =========================================================================
 
-POST a food item by: -- /api/foods/
+POST a food item by: **/api/foods/**
 HTTP Method: **[POST]**
 
 **Body:**
@@ -475,7 +475,7 @@ HTTP Method: **[POST]**
 
 =========================================================================
 
-PUT a food item by ID: -- /api/foods/:id
+PUT a food item by ID: **/api/foods/:id**
 HTTP Method: **[POST]**
 
 **Body:**
@@ -503,7 +503,7 @@ HTTP Method: **[POST]**
 
 =========================================================================
 
-DELETE a food item by ID: -- /api/foods/:id
+DELETE a food item by ID: **/api/foods/:id**
 HTTP Method: **[DEL]**
 
 **Body:**
@@ -531,7 +531,7 @@ HTTP Method: **[DEL]**
 
 =========================================================================
 
-GET a food with events: -- /api/foods/:id/events
+GET a food with events:  **/api/foods/:id/events**
 HTTP Method: **[GET]**
 
 **Body:**
