@@ -13,7 +13,7 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
     // implement registration
     try {
-      const { username, password } = req.body;
+      const { username, password, } = req.body;
       const hash = bcrypt.hashSync(password, 10);
       const user = { username, password: hash }
       const addedUser = await Users.add(user)
@@ -25,11 +25,12 @@ router.post('/register', async (req, res) => {
   });
 
   router.post('/login', async (req, res) => {
+    
     try {
         const [user] = await Users.findBy({ username: req.body.username })
         if(user && bcrypt.compareSync(req.body.password, user.password )) {
             const token = makeToken(user)
-            res.json({ message: `Welcome back, ${user.username}`, token})
+            res.json({ message: `Welcome back, ${user.username}`, token })
         } else {
             res.status(400).json({ message: 'bad credentials'})
         }
