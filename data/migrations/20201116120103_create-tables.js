@@ -16,6 +16,8 @@ exports.up = function(knex) {
     tbl.string('guests', 200).notNullable()
     tbl.string('description', 300)
     tbl.string('items', 300)
+    tbl.string('yesList', 300)
+    tbl.string('noList', 300)
     tbl.boolean('created', 200).notNullable()
     tbl.integer('users_id', 200)
     
